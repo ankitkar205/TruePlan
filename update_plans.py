@@ -45,7 +45,8 @@ def pairs_from_text(text):
     return out
 
 def scrape(page, op, url):
-    page.goto(url, wait_until="networkidle", timeout=60000)
+    page.goto(url, wait_until="domcontentloaded", timeout=45000)
+    page.wait_for_timeout(6000)  # let JS-rendered plan cards appear
     for _ in range(6):  # scroll to trigger lazy-loaded cards
         page.mouse.wheel(0, 2500); page.wait_for_timeout(600)
     text = page.inner_text("body")
@@ -60,10 +61,16 @@ def main():
         b = p.chromium.launch()
         page = b.new_page(user_agent="Mozilla/5.0 (X11; Linux x86_64) Chrome/124 Safari/537.36")
         for op, url in URLS.items():
+            page = b.new_page(user_agent="Mozilla/5.0 (X11; Linux x86_64) Chrome/124 Safari/537.36")  # fresh page per operator
             try:
                 found = scrape(page, op, url)
             except Exception as e:
-                print(f"[{op}] scrape failed: {e}"); continue
+                print(f"[{op}] scrape failed: {e}")
+                try: (DEBUG / f"{op}_error.txt").write_text(page.inner_text("body"), encoding="utf-8")
+                except Exception: pass
+                continue
+            finally:
+                page.close()
             print(f"[{op}] prices found: {len(found)}")
             if len(found) < MIN_PRICES:
                 print(f"[{op}] too few prices, skipping (old data kept)"); continue
@@ -77,7 +84,7 @@ def main():
                 vals = found[pl["price"]]
                 if len(vals) == 1:
                     v = next(iter(vals))
-                    if pl.get("validity") != v and v != 0:
+                    if pl.get("validity", 0) > 0 and pl["validity"] != v and v != 0:  # validity 0 = booster, leave alone
                         alerts.append(f"{op} Rs{pl['price']} validity {pl.get('validity')} -> {v}")
                         pl["validity"] = v; changed += 1
             for price in sorted(set(found) - known):
