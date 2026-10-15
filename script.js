@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   let plansData = [];
   let plansUpdatedAt = null;
   async function fetchPlansJson() {
-    const res = await fetch('data/plans.json?ts=' + Date.now(), { cache: 'no-store' });
+    const res = await fetch('plans.json?ts=' + Date.now(), { cache: 'no-store' });
     if (!res.ok) throw new Error('plans.json HTTP ' + res.status);
     const json = await res.json();
     plansData = json.plans;
@@ -741,7 +741,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   // Load plan data first so the first render is never empty
-  try { await fetchPlansJson(); } catch (e) { console.error('Could not load data/plans.json', e); }
+  try { await fetchPlansJson(); } catch (e) { console.error('Could not load plans.json', e); }
 
   // Initialize All Controllers
   initLiveSyncEngine();
