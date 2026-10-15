@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="description" content="TruePlan India exposes the 28-day validity trap used by telecom operators (Jio, Airtel, Vi, BSNL). Compare true daily costs and switch to honest 30 and 365-day plans.">
+  <title>TruePlan India - Stop Overpaying for Mobile Recharges</title>
+  
+  <!-- Inline SVG Favicon (Shield icon) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  
+  <!-- Link to our Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Hanken Grotesk"', 'sans-serif'],
+            manrope: ['"Manrope"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans antialiased min-h-screen flex flex-col">
+  
+  <!-- Navigation / Header -->
+  <header class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+    <div class="max-w-[1440px] mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl font-extrabold tracking-tight font-manrope">TruePlan<span class="text-green-700">.in</span></span>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="sync-tariffs-btn" title="Click to check & auto-fetch latest official tariffs" class="flex items-center gap-2 text-xs font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 border border-gray-300 px-3.5 py-1.5 rounded-full transition-all cursor-pointer shadow-xs active:scale-95">
+          <span id="sync-indicator" class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
+          <span id="sync-text">Official Tariffs Synced</span>
+          <span class="material-symbols-outlined text-sm text-gray-500" id="sync-icon">sync</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="w-full pt-28 min-h-screen max-w-[1440px] mx-auto px-6 pb-20 flex-grow">
+    
+    <!-- STEP 1: Select Provider -->
+    <section class="text-center py-8" id="selection-section">
+      <div class="inline-flex items-center gap-1.5 px-3.5 py-1 mb-4 rounded-full text-xs font-extrabold bg-amber-100 text-amber-900 border border-amber-300 uppercase tracking-wide shadow-xs">
+        <span class="material-symbols-outlined text-sm text-amber-700">policy</span>
+        Exposing The 28-Day Telecom Surcharge
+      </div>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 text-gray-900 font-manrope">Which SIM do you use?</h1>
+      <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">Select your provider to instantly see their most valuable plans, uncover the hidden '28-day' trap plans, expose OTT streaming markups, and find the cheapest way to keep a secondary SIM active.</p>
+      
+      <!-- Key Statistics Strip -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto mb-10 text-left">
+        <div class="bg-white p-3.5 rounded-xl border border-gray-200 shadow-xs flex items-center gap-3">
+          <span class="material-symbols-outlined text-red-500 text-3xl">event_repeat</span>
+          <div>
+            <div class="text-xl font-extrabold font-manrope text-gray-900">13 / Year</div>
+            <div class="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Recharges Forced</div>
+          </div>
+        </div>
+        <div class="bg-white p-3.5 rounded-xl border border-gray-200 shadow-xs flex items-center gap-3">
+          <span class="material-symbols-outlined text-amber-500 text-3xl">calendar_month</span>
+          <div>
+            <div class="text-xl font-extrabold font-manrope text-gray-900">29 Days</div>
+            <div class="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Uncovered Annually</div>
+          </div>
+        </div>
+        <div class="bg-white p-3.5 rounded-xl border border-gray-200 shadow-xs flex items-center gap-3">
+          <span class="material-symbols-outlined text-green-600 text-3xl">verified</span>
+          <div>
+            <div class="text-xl font-extrabold font-manrope text-gray-900">30/365 D</div>
+            <div class="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">Honest Cycles</div>
+          </div>
+        </div>
+        <div class="bg-white p-3.5 rounded-xl border border-gray-200 shadow-xs flex items-center gap-3">
+          <span class="material-symbols-outlined text-blue-600 text-3xl">gavel</span>
+          <div>
+            <div class="text-xl font-extrabold font-manrope text-gray-900">TRAI 2026</div>
+            <div class="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">13th Amend. Act</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRAI 2026 (13th Amendment) Consumer Protection Regulations Banner -->
+      <div class="max-w-4xl mx-auto mb-8 p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-indigo-950 to-blue-950 text-white shadow-lg border border-blue-800/60 text-left">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-blue-700/50">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-amber-400 text-2xl">gavel</span>
+            <span class="text-xs font-black uppercase tracking-wider text-amber-300 bg-amber-400/20 px-3 py-1 rounded-full border border-amber-400/40 flex items-center gap-1">
+              <span class="h-2 w-2 rounded-full bg-amber-400 animate-pulse"></span>
+              TRAI Mandate • Sept 22, 2026
+            </span>
+          </div>
+          <a href="https://www.trai.gov.in/notifications/press-release/trai-releases-telecom-consumer-protection-13th-amendment-regulations" target="_blank" rel="noopener noreferrer" class="text-xs text-blue-300 hover:text-white underline flex items-center gap-1 font-semibold transition-colors">
+            <span>Read Official Press Release</span>
+            <span class="material-symbols-outlined text-xs">open_in_new</span>
+          </a>
+        </div>
+        
+        <div class="mt-3">
+          <h2 class="text-base sm:text-lg font-extrabold font-manrope text-white flex items-center gap-2">
+            Telecom Consumer Protection (Thirteenth Amendment) Regulations, 2026
+          </h2>
+          <p class="text-xs text-gray-300 mt-1 leading-relaxed">
+            Released by the <strong>Telecom Regulatory Authority of India (TRAI)</strong> on September 22, 2026, to give prepaid mobile users more affordable, data-free recharge options without forced data bundling.
+          </p>
+        </div>
+
+        <!-- 4 Key Features Grid of the 2026 Amendment -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4">
+          <div class="bg-white/5 hover:bg-white/10 transition-colors p-3 rounded-xl border border-white/10">
+            <div class="text-[11px] font-black uppercase text-amber-300 flex items-center gap-1 mb-1">
+              <span class="material-symbols-outlined text-base text-amber-400">record_voice_over</span>
+              Voice & SMS Only
+            </div>
+            <p class="text-[11px] text-gray-200 leading-snug">Operators must offer STVs containing only calling & SMS with zero forced data bundles.</p>
+          </div>
+          <div class="bg-white/5 hover:bg-white/10 transition-colors p-3 rounded-xl border border-white/10">
+            <div class="text-[11px] font-black uppercase text-amber-300 flex items-center gap-1 mb-1">
+              <span class="material-symbols-outlined text-base text-amber-400">hourglass_bottom</span>
+              ≤ 30-Day Durations
+            </div>
+            <p class="text-[11px] text-gray-200 leading-snug">Affordable relief for senior citizens, low-income citizens, and basic phone users.</p>
+          </div>
+          <div class="bg-white/5 hover:bg-white/10 transition-colors p-3 rounded-xl border border-white/10">
+            <div class="text-[11px] font-black uppercase text-amber-300 flex items-center gap-1 mb-1">
+              <span class="material-symbols-outlined text-base text-amber-400">equalizer</span>
+              Equivalent Validity
+            </div>
+            <p class="text-[11px] text-gray-200 leading-snug">Voice/SMS STVs must match the exact validities of existing bundled data-voice plans.</p>
+          </div>
+          <div class="bg-white/5 hover:bg-white/10 transition-colors p-3 rounded-xl border border-white/10">
+            <div class="text-[11px] font-black uppercase text-amber-300 flex items-center gap-1 mb-1">
+              <span class="material-symbols-outlined text-base text-amber-400">event_repeat</span>
+              Same-Date Renewal
+            </div>
+            <p class="text-[11px] text-gray-200 leading-snug">Mandatory option to renew on the exact same date every month (or last day of shorter months).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-4" id="provider-buttons" role="group" aria-label="Select Telecom Provider">
+        <!-- Buttons are automatically injected here by JS -->
+      </div>
+    </section>
+
+    <!-- STEP 2: The Results (Hidden by default until a SIM is clicked) -->
+    <section id="results-section" class="hidden flex-col gap-10 mt-6 scroll-mt-24">
+      
+      <!-- Interactive Trap Waste Calculator Widget -->
+      <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-700">
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-6 border-b border-slate-700/80">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30 uppercase tracking-wider mb-2">
+              <span class="material-symbols-outlined text-sm">calculate</span>
+              Interactive Waste Calculator
+            </div>
+            <h2 class="text-2xl md:text-3xl font-extrabold font-manrope">How much are you losing to the 28-day trap?</h2>
+            <p class="text-sm text-gray-300 mt-1 max-w-xl">
+              28 days × 12 months = <strong>336 days</strong>. The missing <strong>29 days</strong> quietly compel you to pay for an extra 13th month every single year.
+            </p>
+          </div>
+          <div class="bg-white/10 px-5 py-3 rounded-2xl border border-white/15 text-center shrink-0 w-full lg:w-auto">
+            <span class="text-[11px] uppercase tracking-wider text-gray-300 block font-semibold">Active Provider</span>
+            <span id="active-provider-label" class="text-lg font-extrabold text-green-400 font-manrope">Selected Provider</span>
+          </div>
+        </div>
+
+        <!-- Calculator Interactive Controls & Dynamic Result -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">
+          <div class="flex flex-col justify-center">
+            <label for="calc-range" class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2 flex justify-between">
+              <span>Your Monthly Recharge</span>
+              <span class="text-amber-400 font-manrope font-bold text-base" id="calc-price-display">₹299</span>
+            </label>
+            <input type="range" id="calc-range" min="149" max="699" step="10" value="299" class="w-full h-2.5 bg-slate-700 rounded-lg cursor-pointer">
+            <div class="flex justify-between text-[11px] text-gray-400 mt-1 font-mono">
+              <span>₹149</span>
+              <span>₹299</span>
+              <span>₹449</span>
+              <span>₹699</span>
+            </div>
+          </div>
+
+          <div class="bg-white/5 p-4 rounded-2xl border border-white/10 flex flex-col justify-between">
+            <span class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Annual Spend on 28-Day Plan</span>
+            <div class="my-1">
+              <span class="text-2xl font-extrabold text-red-400 font-manrope" id="calc-annual-trap">₹3,898</span>
+              <span class="text-xs text-gray-400 ml-1">(13 recharges)</span>
+            </div>
+            <span class="text-[11px] text-gray-400">vs ₹3,588 on honest 30-day billing</span>
+          </div>
+
+          <div class="bg-amber-400/10 p-4 rounded-2xl border border-amber-400/30 flex flex-col justify-between">
+            <span class="text-xs text-amber-300 uppercase tracking-wider font-bold flex items-center gap-1">
+              <span class="material-symbols-outlined text-sm">paid</span>
+              Your Annual 13th-Month Waste
+            </span>
+            <div class="my-1">
+              <span class="text-3xl font-extrabold text-amber-400 font-manrope" id="calc-waste">₹299</span>
+              <span class="text-xs text-amber-200 ml-1">+ 1 Extra Recharge Forced</span>
+            </div>
+            <span class="text-[11px] text-amber-200/80">Switching to a 365-day plan saves this every year.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plan Category Filter Pills & Search Input -->
+      <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 p-4 bg-white rounded-2xl border border-gray-200 shadow-sm">
+        <div class="flex flex-wrap items-center gap-2" id="category-filter-buttons">
+          <!-- Dynamically populated by JS -->
+        </div>
+
+        <div class="flex items-center gap-2 shrink-0">
+          <div class="relative w-full sm:w-64">
+            <span class="material-symbols-outlined absolute left-3 top-2.5 text-gray-400 text-lg">search</span>
+            <input type="text" id="plan-search-input" placeholder="Search (e.g. 5G, 365, 2GB)..." class="w-full pl-9 pr-8 py-2 text-xs font-semibold rounded-full border border-gray-300 focus:outline-none focus:border-gray-900 bg-gray-50 focus:bg-white transition-all">
+            <button id="clear-search-btn" class="hidden absolute right-2.5 top-2.5 text-gray-400 hover:text-gray-700 cursor-pointer">
+              <span class="material-symbols-outlined text-sm">cancel</span>
+            </button>
+          </div>
+          <button id="share-whatsapp-btn" title="Share with family & friends on WhatsApp" class="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs transition-all cursor-pointer shrink-0">
+            <span class="material-symbols-outlined text-sm">share</span>
+            <span class="hidden sm:inline">Expose the Trap</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- SECTION 1: Valuable Plans Section (GREEN) -->
+      <div id="valuable-section">
+        <div class="flex items-center gap-2 mb-6 border-b-2 border-green-600 pb-2">
+          <span class="material-symbols-outlined text-green-700 text-3xl">workspace_premium</span>
+          <h2 class="text-2xl font-bold text-gray-900 font-manrope">Most Valuable Plans</h2>
+          <span class="ml-auto bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider hidden sm:block">Lowest Daily Cost</span>
+        </div>
+        <p class="text-sm text-gray-600 mb-4 bg-green-50 p-3.5 rounded-xl border border-green-200">
+          <strong>Why choose these?</strong> These plans offer true 30-day, 31-day, or 365-day validities. You recharge exactly 12 times a year (or once a year), saving you from phantom 13th-month charges.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="valuable-grid">
+          <!-- Cards injected by JS -->
+        </div>
+      </div>
+
+      <!-- SECTION 2: Secondary SIM / Keep Active Plans Section (YELLOW) -->
+      <div id="simactive-section">
+        <div class="flex items-center gap-2 mb-6 border-b-2 border-amber-500 pb-2">
+          <span class="material-symbols-outlined text-amber-500 text-3xl">sim_card</span>
+          <h2 class="text-2xl font-bold text-gray-900 font-manrope">Best Plans for Secondary SIMs (Keep Active)</h2>
+          <span class="ml-auto bg-amber-100 text-amber-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider hidden sm:block border border-amber-300">⭐ SIM Keeper Deals</span>
+        </div>
+        <p class="text-sm text-gray-700 mb-4 bg-amber-50/80 p-3.5 rounded-xl border border-amber-300">
+          <strong>Need to keep a secondary SIM alive for OTPs, banking, and emergency calls?</strong> These are the most cost-effective plans specifically designed to keep your SIM active at the absolute lowest cost per day.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="simactive-grid">
+          <!-- Cards injected by JS in Yellow -->
+        </div>
+      </div>
+
+      <!-- SECTION 3: Trap / Scam Plans Section (RED) -->
+      <div id="trap-section">
+        <div class="flex items-center gap-2 mb-6 border-b-2 border-red-600 pb-2">
+          <span class="material-symbols-outlined text-red-600 text-3xl">warning</span>
+          <h2 class="text-2xl font-bold text-gray-900 font-manrope">Trap Plans to Avoid</h2>
+          <span class="ml-auto bg-red-100 text-red-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider hidden sm:block">High Daily Cost</span>
+        </div>
+        <p class="text-sm text-gray-600 mb-4 bg-red-50 p-3.5 rounded-xl border border-red-200">
+          <strong>Why are these traps?</strong> These plans have a 14-day, 15-day, 24-day, 28-day, 56-day, or 84-day validity. This deliberately misaligns with calendar months, forcing you to recharge <strong>13 to 26 times a year</strong> instead of 12.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="trap-grid">
+          <!-- Cards injected by JS in Red -->
+        </div>
+      </div>
+
+      <!-- SECTION 4: Data Boosters & Top-Up Addons (BLUE) -->
+      <div id="booster-section">
+        <div class="flex items-center gap-2 mb-6 border-b-2 border-blue-600 pb-2">
+          <span class="material-symbols-outlined text-blue-600 text-3xl">bolt</span>
+          <h2 class="text-2xl font-bold text-gray-900 font-manrope">Data Boosters & Add-on Packs</h2>
+          <span class="ml-auto bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider hidden sm:block border border-blue-200">Extra Data on Demand</span>
+        </div>
+        <p class="text-sm text-gray-700 mb-4 bg-blue-50/80 p-3.5 rounded-xl border border-blue-200">
+          <strong>Exhausted your daily high-speed quota?</strong> Here are official data booster add-ons sorted by <strong>Cost Per GB</strong> so you get the highest data volume for every rupee spent.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="booster-grid">
+          <!-- Cards injected by JS in Blue -->
+        </div>
+      </div>
+
+      <!-- SECTION 5: OTT Bundled Plans & Traps (PURPLE) -->
+      <div id="ott-section">
+        <div class="flex items-center gap-2 mb-6 border-b-2 border-purple-600 pb-2">
+          <span class="material-symbols-outlined text-purple-600 text-3xl">smart_display</span>
+          <h2 class="text-2xl font-bold text-gray-900 font-manrope">OTT Bundled Plans & Streaming Gotchas</h2>
+          <span class="ml-auto bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider hidden sm:block border border-purple-300">🍿 The Streaming Illusion</span>
+        </div>
+        
+        <!-- OTT Gotchas Callout -->
+        <div class="bg-purple-50/90 border border-purple-300 rounded-2xl p-4 mb-5 text-xs text-purple-950">
+          <div class="font-bold text-sm text-purple-900 flex items-center gap-1.5 mb-1.5">
+            <span class="material-symbols-outlined text-base text-purple-700">warning</span>
+            Why Telecom OTT Bundles Are Often A Rip-Off:
+          </div>
+          <ul class="list-disc pl-5 space-y-1.5 text-purple-900/90">
+            <li><strong>Single Mobile Screen Lock (480p SD / 720p HD):</strong> Telecom OTT subscriptions (like Disney+ Hotstar Mobile, SonyLIV Mobile, JioCinema Premium) are hard-locked to a single phone screen and capped at 720p HD or 480p SD. Casting to Smart TVs and streaming on PC browsers is strictly blocked!</li>
+            <li><strong>The "Free OTT" Illusion:</strong> Standalone Disney+ Hotstar Mobile is ₹499/year. Buying it via 28-day telecom bundles charges ₹100–₹150 extra each cycle — bleeding ₹1,300 to ₹1,950+ extra across 13 forced recharges!</li>
+            <li><strong>Instant Revocation:</strong> Miss your prepaid recharge by even 24 hours, and your bundled streaming access is terminated immediately.</li>
+          </ul>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="ott-grid">
+          <!-- Cards injected by JS in Purple -->
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Floating Back to Top Button -->
+  <button id="back-to-top" title="Back to top" class="fixed bottom-6 left-6 z-40 bg-white hover:bg-gray-100 text-gray-800 border border-gray-300 p-3 rounded-full shadow-lg transition-all cursor-pointer flex items-center justify-center">
+    <span class="material-symbols-outlined text-lg">arrow_upward</span>
+  </button>
+
+  <!-- Live Sync Floating Toast Notification -->
+  <div id="sync-toast" class="fixed bottom-6 right-6 z-50 max-w-md bg-slate-900 text-white p-4 rounded-2xl shadow-2xl border border-slate-700 flex items-start gap-3">
+    <span class="material-symbols-outlined text-green-400 text-2xl shrink-0 mt-0.5" id="toast-icon">cloud_done</span>
+    <div class="flex-grow">
+      <div class="text-xs font-bold uppercase tracking-wider text-green-400 mb-0.5" id="toast-title">Official Tariffs Synced</div>
+      <div class="text-xs text-gray-300" id="toast-message">Verified against official regulatory filings & prepaid portals from Jio, Airtel, Vi, and BSNL.</div>
+    </div>
+    <button id="toast-close" type="button" class="text-gray-400 hover:text-white cursor-pointer ml-1">
+      <span class="material-symbols-outlined text-base">close</span>
+    </button>
+  </div>
+
+  <footer class="w-full bg-white border-t border-gray-200 py-10 text-center text-gray-500 text-sm mt-auto">
+    <div class="max-w-[1440px] mx-auto px-6">
+      <!-- Legal & Regulatory Notice Callout -->
+      <div class="max-w-3xl mx-auto mb-6 p-5 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-700 text-left flex flex-col sm:flex-row items-start gap-3.5 shadow-xs">
+        <span class="material-symbols-outlined text-blue-700 text-2xl shrink-0 mt-0.5">policy</span>
+        <div class="space-y-2">
+          <div>
+            <span class="font-extrabold text-slate-900 text-sm block">TRAI Consumer Protection (13th Amendment) Regulations, 2026</span>
+            <p class="text-slate-600 mt-0.5">
+              Notified on <strong>September 22, 2026</strong> by the Telecom Regulatory Authority of India (TRAI), telecom service providers are mandated to offer standalone <strong>Voice & SMS-only Special Tariff Vouchers (STVs)</strong> without compulsory data bundling for validities of 30 days or less. These vouchers must match equivalent durations of data-bundled plans and include same-date monthly renewals.
+            </p>
+          </div>
+          <div class="pt-2 border-t border-slate-200 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-slate-500">
+            <span>Also incorporates <strong>TRAI 66th Tariff Order 2022</strong> (Mandatory 30-day and calendar month recharge).</span>
+            <a href="https://www.trai.gov.in/notifications/press-release/trai-releases-telecom-consumer-protection-13th-amendment-regulations" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:text-blue-900 font-bold underline inline-flex items-center gap-0.5">
+              <span>TRAI Notification</span>
+              <span class="material-symbols-outlined text-[10px]">open_in_new</span>
+            </a>
+            <a href="https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=2313349&reg=3&lang=1" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:text-blue-900 font-bold underline inline-flex items-center gap-0.5">
+              <span>PIB Release</span>
+              <span class="material-symbols-outlined text-[10px]">open_in_new</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <p class="font-bold text-gray-700 mb-1">© 2026 TruePlan India.</p>
+      <p>Independent consumer advocacy intelligence. Unaffiliated with Reliance Jio, Bharti Airtel, Vodafone Idea, or BSNL.</p>
+    </div>
+  </footer>
+
+  <!-- Link to our Custom JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
